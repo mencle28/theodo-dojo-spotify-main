@@ -1,6 +1,8 @@
 import logo from './assets/logo.svg';
 import './App.css';
 import { useState } from 'react';
+import { fetchTracks } from './lib/fetchTracks';
+import { useQuery } from '@tanstack/react-query';
 
 const App = () => {
   const trackUrls = [
@@ -13,6 +15,11 @@ const App = () => {
 
   //var trackIndex = 0;
   const [trackIndex, setTrackIndex] = useState(0);
+
+  const { data: tracks } = useQuery({
+    queryKey: ['tracks'],
+    queryFn: fetchTracks,
+  });
 
   const goToNextTrack = () => {
     //incrémente la variable numéro de son
