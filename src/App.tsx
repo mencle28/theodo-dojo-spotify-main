@@ -31,7 +31,7 @@ const App = () => {
 
   const goToNextTrack = () => {
     //incrémente la variable numéro de son
-    if (trackIndex < trackUrls.length - 1) {
+    if (trackIndex < tracks.length - 1) {
       setTrackIndex(trackIndex + 1);
       return;
     }
@@ -50,13 +50,16 @@ const App = () => {
           <p>Il va falloir modifier le code pour faire un vrai blind test !</p>
           <p> Le nombre de morceaux disponible est {tracks.length}</p>
 
-          <p>le titre est {tracks[0].track.name}</p>
+          <p>le titre est {tracks[trackIndex].track.name}</p>
         </div>
 
         <div className="App-buttons"></div>
-        <audio src={trackUrls[trackIndex]} controls />
+        <audio src={tracks[trackIndex].track.preview_url} controls />
         <button onClick={goToNextTrack}>Next track</button>
-        <AlbumCover track={tracks[0]} />
+        <AlbumCover track={tracks[trackIndex]} />
+        <button onClick> {tracks[trackIndex + 1].track.name} </button>
+        <button onClick>{tracks[trackIndex + 2].track.name} </button>
+        <button onClick>{tracks[trackIndex + 3].track.name} </button>
       </div>
     );
   }
