@@ -1,8 +1,9 @@
 import logo from './assets/logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchTracks } from './lib/fetchTracks';
 import { useQuery } from '@tanstack/react-query';
+import { SavedTrack } from 'spotify-types';
 
 const App = () => {
   const trackUrls = [
@@ -12,10 +13,14 @@ const App = () => {
     'https://p.scdn.co/mp3-preview/0f6b8a3524ec410020457da4cdd7717f9addce2f',
     'https://p.scdn.co/mp3-preview/ac28d1b0be285ed3bfd8e9fa5fad133776d7cf36',
   ];
+  const AlbumCover = (props: { track: SavedTrack }) => {
+    const src = props.track.track.album.images[0]?.url; // A changer ;)
+    return <img src={src} style={{ width: 400, height: 400 }} />;
+  };
 
   //var trackIndex = 0;
   const [trackIndex, setTrackIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const { data: tracks } = useQuery({
     queryKey: ['tracks'],
@@ -32,8 +37,8 @@ const App = () => {
     }
     setTrackIndex(0);
   };
-  setIsLoading(tracks == undefined);
-
+  const isLoading = tracks != undefined;
+  // useEffect(() => setIsLoading(tracks != undefined), [tracks]);
   if (isLoading) {
     return (
       <div className="App">
@@ -51,6 +56,7 @@ const App = () => {
         <div className="App-buttons"></div>
         <audio src={trackUrls[trackIndex]} controls />
         <button onClick={goToNextTrack}>Next track</button>
+        <AlbumCover track={tracks[0]} />
       </div>
     );
   }
