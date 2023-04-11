@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { fetchTracks } from './lib/fetchTracks';
 import { useQuery } from '@tanstack/react-query';
 
+
 const App = () => {
   const trackUrls = [
     'https://p.scdn.co/mp3-preview/742294f35af9390e799dd96c633788410a332e52',
@@ -20,6 +21,8 @@ const App = () => {
     queryKey: ['tracks'],
     queryFn: fetchTracks,
   });
+  console.log('logs');
+  console.log(tracks);
 
   const goToNextTrack = () => {
     //incrémente la variable numéro de son
@@ -37,7 +40,10 @@ const App = () => {
       </header>
       <div className="App-images">
         <p>Il va falloir modifier le code pour faire un vrai blind test !</p>
+        <p> Le nombre de morceaux disponible est {tracks.length}</p>
+        
       </div>
+      
       <div className="App-buttons"></div>
       <audio src={trackUrls[trackIndex]} controls />
       <button onClick={goToNextTrack}>Next track</button>
