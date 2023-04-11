@@ -19,7 +19,7 @@ const App = () => {
         <p>Il va falloir modifier le code pour faire un vrai blind test !</p>
       </div>
       <div className="App-buttons"></div>
-      <audio src={trackUrls[0]} autoPlay controls />
+      <audio src={trackUrls[0]} controls />
     </div>
   );
 };
