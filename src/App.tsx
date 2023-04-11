@@ -2,6 +2,23 @@ import logo from './assets/logo.svg';
 import './App.css';
 import { useState } from 'react';
 
+const apiToken = '';
+
+export const fetchTracks = async () => {
+  const response = await fetch('https://api.spotify.com/v1/me/tracks', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + apiToken,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`Fetching tracks failed with status ${response.status}`);
+  }
+  const data = (await response.json()) as { items: unknown[] };
+
+  return data.items;
+};
+
 const App = () => {
   const trackUrls = [
     'https://p.scdn.co/mp3-preview/742294f35af9390e799dd96c633788410a332e52',
@@ -18,9 +35,9 @@ const App = () => {
     //incrémente la variable numéro de son
     if (trackIndex < trackUrls.length - 1) {
       setTrackIndex(trackIndex + 1);
-    } else {
-      setTrackIndex(0);
+      return;
     }
+    setTrackIndex(0);
   };
   return (
     <div className="App">
