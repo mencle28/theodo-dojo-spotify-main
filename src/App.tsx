@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { fetchTracks } from './lib/fetchTracks';
 import { useQuery } from '@tanstack/react-query';
 
-
 const App = () => {
   const trackUrls = [
     'https://p.scdn.co/mp3-preview/742294f35af9390e799dd96c633788410a332e52',
@@ -16,6 +15,7 @@ const App = () => {
 
   //var trackIndex = 0;
   const [trackIndex, setTrackIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { data: tracks } = useQuery({
     queryKey: ['tracks'],
@@ -32,23 +32,29 @@ const App = () => {
     }
     setTrackIndex(0);
   };
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Blind Test </h1>
-      </header>
-      <div className="App-images">
-        <p>Il va falloir modifier le code pour faire un vrai blind test !</p>
-        <p> Le nombre de morceaux disponible est {tracks.length}</p>
-        
+  setIsLoading(tracks == undefined);
+
+  if (isLoading) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Blind Test </h1>
+        </header>
+        <div className="App-images">
+          <p>Il va falloir modifier le code pour faire un vrai blind test !</p>
+          <p> Le nombre de morceaux disponible est {tracks.length}</p>
+
+          <p>le titre est {tracks[0].track.name}</p>
+        </div>
+
+        <div className="App-buttons"></div>
+        <audio src={trackUrls[trackIndex]} controls />
+        <button onClick={goToNextTrack}>Next track</button>
       </div>
-      
-      <div className="App-buttons"></div>
-      <audio src={trackUrls[trackIndex]} controls />
-      <button onClick={goToNextTrack}>Next track</button>
-    </div>
-  );
+    );
+  }
+  return <p>Loading</p>;
 };
 
 export default App;
