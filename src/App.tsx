@@ -81,12 +81,13 @@ const App = () => {
         </button>
         <button onClick={() => verifId(trackIndex + 0)}>
           {tracks[trackIndex].track.name}
+
+          <br />
+          <img
+            src={tracks[trackIndex].track.album.images[0]?.url}
+            style={{ width: 100, height: 100 }}
+          />
         </button>
-        <br />
-        <img
-          src={tracks[trackIndex].track.album.images[0]?.url}
-          style={{ width: 100, height: 100 }}
-        />
       </div>
     );
   }
