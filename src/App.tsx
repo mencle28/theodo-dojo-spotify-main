@@ -62,15 +62,14 @@ const App = () => {
         <audio src={tracks[trackIndex].track.preview_url} controls />
         <button onClick={goToNextTrack}>Next track</button>
         <AlbumCover track={tracks[trackIndex]} />
-        <button onClick={trackIndex + 1}>
-          {' '}
-          {tracks[trackIndex + 1].track.name}{' '}
+        <button onClick={() => verifId(trackIndex + 1)}>
+          {tracks[trackIndex + 1].track.name}
         </button>
-        <button onClick={trackIndex + 2}>
-          {tracks[trackIndex + 2].track.name}{' '}
+        <button onClick={() => verifId(trackIndex + 2)}>
+          {tracks[trackIndex + 2].track.name}
         </button>
-        <button onClick={trackIndex + 3}>
-          {tracks[trackIndex + 3].track.name}{' '}
+        <button onClick={() => verifId(trackIndex + 0)}>
+          {tracks[trackIndex].track.name}
         </button>
       </div>
     );
