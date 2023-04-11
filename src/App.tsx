@@ -16,7 +16,7 @@ const App = () => {
 
   const goToNextTrack = () => {
     //incrémente la variable numéro de son
-    if (trackIndex <= trackUrls.length) {
+    if (trackIndex < trackUrls.length - 1) {
       setTrackIndex(trackIndex + 1);
     } else {
       setTrackIndex(0);
