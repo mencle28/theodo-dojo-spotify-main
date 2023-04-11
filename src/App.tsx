@@ -1,5 +1,6 @@
 import logo from './assets/logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 const App = () => {
   const trackUrls = [
@@ -9,6 +10,18 @@ const App = () => {
     'https://p.scdn.co/mp3-preview/0f6b8a3524ec410020457da4cdd7717f9addce2f',
     'https://p.scdn.co/mp3-preview/ac28d1b0be285ed3bfd8e9fa5fad133776d7cf36',
   ];
+
+  //var trackIndex = 0;
+  const [trackIndex, setTrackIndex] = useState(0);
+
+  const goToNextTrack = () => {
+    //incrémente la variable numéro de son
+    if (trackIndex <= trackUrls.length) {
+      setTrackIndex(trackIndex + 1);
+    } else {
+      setTrackIndex(0);
+    }
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -19,7 +32,8 @@ const App = () => {
         <p>Il va falloir modifier le code pour faire un vrai blind test !</p>
       </div>
       <div className="App-buttons"></div>
-      <audio src={trackUrls[0]} controls />
+      <audio src={trackUrls[trackIndex]} controls />
+      <button onClick={goToNextTrack}>Next track</button>
     </div>
   );
 };
